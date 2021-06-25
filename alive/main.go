@@ -13,6 +13,7 @@ func main() {
 	var timer time.Timer
 
 	cnt := 1
+	text := make(chan string, 1)
 	go func() {
 		for alive := true; alive; {
 			log.Println("next")
@@ -20,8 +21,8 @@ func main() {
 			<-timer.C
 			log.Println("round:", cnt)
 			cnt++
-			log.Println("sleep")
-			time.Sleep(5 * time.Second)
+			calculate(text)
+			log.Println(<-text)
 		}
 	}()
 
@@ -30,7 +31,15 @@ func main() {
 
 	log.Println("started")
 	<-s
+	log.Println("wait text")
+	<-text
 
 	log.Println("gracefully shutting down...")
 	log.Println("timer Stop:", timer.Stop())
+}
+
+func calculate(s chan string) {
+	s <- "ssssssss"
+	log.Println("sleep")
+	time.Sleep(5 * time.Second)
 }
