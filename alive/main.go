@@ -32,14 +32,14 @@ func main() {
 	log.Println("started")
 	<-s
 	log.Println("wait text")
-	<-text
+	log.Println(<-text)
 
 	log.Println("gracefully shutting down...")
 	log.Println("timer Stop:", timer.Stop())
 }
 
 func calculate(s chan string) {
-	s <- "ssssssss"
 	log.Println("sleep")
 	time.Sleep(5 * time.Second)
+	s <- "OK"
 }
