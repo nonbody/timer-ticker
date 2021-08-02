@@ -15,7 +15,7 @@ func main() {
 	cnt := 1
 	text := make(chan string, 1)
 	go func() {
-		for alive := true; alive; {
+		for {
 			log.Println("next")
 			timer = *time.NewTimer(2 * time.Second)
 			<-timer.C
